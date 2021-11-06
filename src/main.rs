@@ -1,34 +1,14 @@
-use warp::Filter;
+extern crate crypto;
+use self::crypto::digest::Digest;
+use self::crypto::sha3::Sha3;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Heroku injects the port as an environment variable
-    let port = std::env::var("PORT")
-        .ok()
-        .map(|val| val.parse::<u16>())
-        .unwrap_or(Ok(8080))?;
-
-    // GET /hello
-    let hello = warp::path("hello").and(warp::get()).map(|| "World");
-
-    // GET /world
-    let world = warp::path("world").and(warp::get()).map(|| "Hello");
-
-    // fallback
-    let fallback = warp::any().map(|| "Not found");
-
-    let routes = hello.or(world).or(fallback);
-
-    println!("Starting server on port: {}", port);
-    let (_addr, server) =
-        warp::serve(routes).bind_with_graceful_shutdown(([0, 0, 0, 0], port), async {
-            tokio::signal::ctrl_c()
-                .await
-                .expect("http_server: Failed to listen for CRTL+c");
-            println!("Shutting down HTTP server");
-        });
-
-    server.await;
-
-    Ok(())
+fn main(){
+    // create a SHA3-256 object
+    let mut hasher = Sha3::sha3_256();
+    // write input message
+    hasher.input_str("abc");
+    // read hash digest
+    let hex = hasher.result_str();
+    assert_eq!(hex, "3a985da74fe225b2045c172d6bd390bd855f086e3e9d525b46bfe24511431532");
+    println!("{}",hex);
 }
