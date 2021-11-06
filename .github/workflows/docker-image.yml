@@ -20,7 +20,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Docker Login
-      run: docker login --username_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
+      run: docker login --username=${{ secrets.HEROKU_EMAIL }} --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
     - name: Deploy Docker Image to Heroku App
       run: |
         heroku container:push web -a $APP_NAME
