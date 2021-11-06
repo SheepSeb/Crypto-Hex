@@ -1,6 +1,9 @@
 extern crate crypto;
 use self::crypto::digest::Digest;
 use self::crypto::sha3::Sha3;
+// use crypto::hmac::Hmac;
+// use crypto::mac::Mac;
+
 
 #[macro_use] extern crate rocket;
 
@@ -16,27 +19,13 @@ fn sha3() -> String {
     hasher.result_str()
 }
 
+// #[get("/aes")]
+// fn aes() -> String{
+// }
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()
                 .mount("/", routes![index])
                 .mount("/", routes![sha3])
 }
-
-// async fn main() {
-//     rocket::build()
-//         .mount("/hello", routes![world])
-//         .launch()
-//         .await;
-// }
-
-// fn main(){
-//     // create a SHA3-256 object
-//     let mut hasher = Sha3::sha3_256();
-//     // write input message
-//     hasher.input_str("abc");
-//     // read hash digest
-//     let hex = hasher.result_str();
-//     assert_eq!(hex, "3a985da74fe225b2045c172d6bd390bd855f086e3e9d525b46bfe24511431532");
-//     println!("{}",hex);
-// }
