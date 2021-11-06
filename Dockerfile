@@ -10,4 +10,6 @@ COPY ./server /code/server
 
 WORKDIR /code/server
 
-CMD ["uvicorn","main:app","--host","0.0.0.0","--port","80"]
+EXPOSE 5000
+
+CMD ["uvicorn","main:app","--host","0.0.0.0","--port","5000"]
