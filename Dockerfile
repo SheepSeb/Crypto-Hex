@@ -8,7 +8,7 @@ RUN apt update && apt install -y musl-tools musl-dev
 RUN update-ca-certificates
 
 # Create appuser
-ENV USER=myapp
+ENV USER=crypto-server
 ENV UID=10001
 
 RUN adduser \
@@ -21,7 +21,7 @@ RUN adduser \
     "${USER}"
 
 
-WORKDIR /myapp
+WORKDIR /crypto-server
 
 COPY ./ .
 
@@ -36,12 +36,12 @@ FROM alpine:latest
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
 
-WORKDIR /myapp
+WORKDIR /crypto-server
 
 # Copy our build
-COPY --from=builder /myapp/target/x86_64-unknown-linux-musl/release/myapp ./
+COPY --from=builder /crypto-server/target/x86_64-unknown-linux-musl/release/crypto-server ./
 
 # Use an unprivileged user.
-USER myapp:myapp
+USER crypto-server:crypto-server
 
-CMD ["/myapp/myapp"]
+CMD ["/crypto-server/crypto-server"]
