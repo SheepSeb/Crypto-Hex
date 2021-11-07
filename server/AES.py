@@ -34,8 +34,3 @@ class AESCipher(object):
     def __unpad(plain_text):
         last_character = plain_text[len(plain_text) - 1:]
         return plain_text[:-ord(last_character)]
-
-key = "randomtg3qf4q$q4"
-ciph = AESCipher(key)
-c = ciph.encrypt("HELLOW RODLS")
-print(ciph.decrypt(c))

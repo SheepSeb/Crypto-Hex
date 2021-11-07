@@ -24,13 +24,3 @@ def rsa_decrypt(encrypted, key):
 	decrypted_text = rsa_private_key.decrypt(encrypted).decode()
 
 	return decrypted_text
-
-
-message = input('plain text for RSA encryption and decryption: ')
-
-key = RSA.generate(2048)
-c = rsa_encrypt(message, key)
-print("encryption: ", c)
-
-d = rsa_decrypt(c, key)
-print("Original msg: ", d)
