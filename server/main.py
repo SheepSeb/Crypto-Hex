@@ -14,9 +14,8 @@ def url_parse(data):
 @app.get("/set-profile/{data}")
 def set_profile(data: str):
     data = url_parse(data)
-    print(data)
+    data = 'https://lh3.googleusercontent.com/ogw/' + data
     hash = hashimg.hash_img_url(data)
-    print (hash)
     payload = {
         "data":hash
     }
